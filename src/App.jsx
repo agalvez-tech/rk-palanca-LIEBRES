@@ -13,7 +13,8 @@ export default function App() {
 
   const activeSource = SOURCES.find(s => s.key === activeTab)
   const agents = agentsForSource(activeTab)
-  const leads = (data && data[activeTab]) || []
+  const rawLeads = (data && data[activeTab]) || []
+  const leads = [...rawLeads].sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
 
   if (loading) {
     return <div className="loading-screen">Cargando captaciones...</div>

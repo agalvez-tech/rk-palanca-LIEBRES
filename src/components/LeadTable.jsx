@@ -56,6 +56,9 @@ export default function LeadTable({ leads, agents, onUpdate, onDelete }) {
                 <select className="editable-input" value={lead.comercial || ''} onChange={e => onUpdate({ ...lead, comercial: e.target.value })}>
                   <option value="">—</option>
                   {agents.map(a => <option key={a.name} value={a.name}>{a.name}</option>)}
+                  {lead.comercial && !agents.some(a => a.name === lead.comercial) && (
+                    <option value={lead.comercial}>{lead.comercial} (fuera de ranking)</option>
+                  )}
                 </select>
               </td>
               <td>
