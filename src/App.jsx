@@ -23,7 +23,7 @@ export default function App() {
     <div className="app-shell">
       <header className="app-header">
         <div className="app-title">
-          <h1>RK <span>Captaciones</span></h1>
+          <h1>RK <span>Liebres</span></h1>
           <p>Reparto de leads por fuente · RK Palanca Fontestad</p>
         </div>
         <div className="sync-pill">

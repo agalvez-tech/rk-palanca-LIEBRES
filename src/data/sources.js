@@ -1,8 +1,8 @@
 export const SOURCES = [
   {
     key: 'generacionPropia',
-    label: 'Generación Propia',
-    short: 'Propia',
+    label: 'Generación Staff',
+    short: 'Staff',
     description: 'Captaciones generadas por el propio agente (puerta fría, cartera, referidos...).',
     color: '#CF731B',
   },

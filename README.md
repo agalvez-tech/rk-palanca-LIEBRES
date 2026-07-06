@@ -1,10 +1,10 @@
-# RK Captaciones · Reparto de Leads
+# RK Liebres · Reparto de Leads
 
 App interna de RK Palanca Fontestad para registrar y repartir captaciones entre agentes, según su nivel de acceso (ranking mensual), con visualización de equidad en tiempo real.
 
 ## Bloques / pestañas
 
-1. **Generación Propia** — abierto a todos los agentes
+1. **Generación Staff** — abierto a todos los agentes
 2. **Verónica (Telemarketing)** — Top Producer, Consultor Senior, Consultor Junior
 3. **Oficina Foios** — Top Producer, Consultor Senior
 4. **Oficina Meliana** — Top Producer, Consultor Senior
