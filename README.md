@@ -10,6 +10,7 @@ App interna de RK Palanca Fontestad para registrar y repartir captaciones entre 
 4. **Oficina Meliana** — Top Producer, Consultor Senior
 5. **Oficina Tavernes Blanques** — Top Producer, Consultor Senior
 6. **Oficina Massamagrell** — Top Producer, Consultor Senior
+7. **Obra Nueva** — cliente que viene a comprar obra nueva y además tiene propiedad para vender; lo detecta el equipo de obra nueva (Inma Frasquet, Alicia Barberá, Carles Navarro, Jose González) pero cuenta como generación de oficina, así que el reparto sigue el mismo grupo que las oficinas (Top Producer, Consultor Senior)
 7. **Gerencia (VIP)** — Top Producer únicamente
 
 Los niveles y agentes están definidos en `src/data/agents.js`, según el `RANKING 05/2026`. Cuando cambie el ranking mensual, solo hay que actualizar ese archivo (nivel de cada agente).

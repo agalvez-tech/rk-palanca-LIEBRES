@@ -41,6 +41,13 @@ export const SOURCES = [
     description: 'Clientes que entran por la oficina de Massamagrell. Acceso: Top Producer y Consultor Senior.',
     color: '#2E86AB',
   },
+  {
+    key: 'obraNueva',
+    label: 'Obra Nueva',
+    short: 'Obra Nueva',
+    description: 'Cliente que viene a comprar obra nueva y además tiene una propiedad para vender: la detecta el equipo de obra nueva y cuenta como generación de oficina. Reparto entre el mismo grupo que las oficinas (Top Producer y Consultor Senior).',
+    color: '#1F7A5C',
+  },
 ]
 
 export const ESTADOS = ['En seguimiento', 'Contactado', 'Captado', 'Descartado']

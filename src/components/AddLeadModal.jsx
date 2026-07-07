@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ESTADOS } from '../data/sources'
 import { STAFF_MEMBERS } from '../data/staff'
+import { OBRA_NUEVA_TEAM } from '../data/obraNueva'
 
 const emptyForm = {
   contacto: '',
@@ -15,6 +16,7 @@ const emptyForm = {
 export default function AddLeadModal({ open, onClose, onSave, agents, sourceLabel, sourceKey }) {
   const [form, setForm] = useState(emptyForm)
   const isStaffTab = sourceKey === 'generacionPropia'
+  const isObraNuevaTab = sourceKey === 'obraNueva'
 
   if (!open) return null
 
@@ -67,11 +69,16 @@ export default function AddLeadModal({ open, onClose, onSave, agents, sourceLabe
             </select>
           </div>
           <div className="form-row">
-            <label>Quién lo registra{isStaffTab ? ' (staff)' : ''}</label>
+            <label>{isObraNuevaTab ? 'Quién lo detecta (obra nueva)' : `Quién lo registra${isStaffTab ? ' (staff)' : ''}`}</label>
             {isStaffTab ? (
               <select value={form.altaAgente} onChange={e => set('altaAgente', e.target.value)}>
                 <option value="">Selecciona...</option>
                 {STAFF_MEMBERS.map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+            ) : isObraNuevaTab ? (
+              <select value={form.altaAgente} onChange={e => set('altaAgente', e.target.value)}>
+                <option value="">Selecciona...</option>
+                {OBRA_NUEVA_TEAM.map(s => <option key={s} value={s}>{s}</option>)}
               </select>
             ) : (
               <input value={form.altaAgente} onChange={e => set('altaAgente', e.target.value)} placeholder="Tu nombre" />

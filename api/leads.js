@@ -12,6 +12,7 @@ const VALID_SOURCES = [
   'ofMeliana',
   'ofTavernes',
   'ofMassamagrell',
+  'obraNueva',
   'gerencia',
 ]
 

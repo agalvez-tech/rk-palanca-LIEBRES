@@ -49,6 +49,7 @@ export const SOURCE_LEVEL_ACCESS = {
   ofMeliana: ['top', 'senior'],
   ofTavernes: ['top', 'senior'],
   ofMassamagrell: ['top', 'senior'],
+  obraNueva: ['top', 'senior'],
 }
 
 export function agentsForSource(sourceKey) {
