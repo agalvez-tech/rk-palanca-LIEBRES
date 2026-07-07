@@ -1,20 +1,38 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { SOURCES } from './data/sources'
 import { agentsForSource } from './data/agents'
 import { useLeadsData } from './hooks/useLeadsData'
 import EquityChart from './components/EquityChart'
+import StaffAnnualBoard from './components/StaffAnnualBoard'
 import LeadTable from './components/LeadTable'
 import AddLeadModal from './components/AddLeadModal'
+import PeriodFilter from './components/PeriodFilter'
+
+const CURRENT_YEAR = new Date().getFullYear()
+const CURRENT_MONTH = new Date().getMonth()
 
 export default function App() {
   const [activeTab, setActiveTab] = useState(SOURCES[0].key)
   const [modalOpen, setModalOpen] = useState(false)
+  const [year, setYear] = useState(CURRENT_YEAR)
+  const [month, setMonth] = useState(CURRENT_MONTH)
   const { data, loading, error, syncing, addLead, updateLead, deleteLead } = useLeadsData()
 
   const activeSource = SOURCES.find(s => s.key === activeTab)
   const agents = agentsForSource(activeTab)
   const rawLeads = (data && data[activeTab]) || []
   const leads = [...rawLeads].sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
+  const isStaffTab = activeTab === 'generacionPropia'
+
+  const availableYears = useMemo(() => {
+    const years = new Set([CURRENT_YEAR])
+    Object.values(data || {}).forEach(list => {
+      list.forEach(l => {
+        if (l.createdAt) years.add(new Date(l.createdAt).getFullYear())
+      })
+    })
+    return [...years].sort((a, b) => b - a)
+  }, [data])
 
   if (loading) {
     return <div className="loading-screen">Cargando captaciones...</div>
@@ -56,9 +74,24 @@ export default function App() {
         })}
       </nav>
 
-      <p className="panel-desc">{activeSource.description}</p>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12, marginBottom: 4 }}>
+        <p className="panel-desc" style={{ margin: 0 }}>{activeSource.description}</p>
+        <PeriodFilter
+          year={year}
+          month={month}
+          onYearChange={setYear}
+          onMonthChange={setMonth}
+          availableYears={availableYears}
+          hideMonth={isStaffTab}
+        />
+      </div>
+      <div style={{ height: 14 }} />
 
-      <EquityChart leads={leads} agents={agents} color={activeSource.color} />
+      {isStaffTab ? (
+        <StaffAnnualBoard leads={leads} year={year} />
+      ) : (
+        <EquityChart leads={leads} agents={agents} color={activeSource.color} year={year} month={month} />
+      )}
 
       <div className="add-bar">
         <button className="btn-primary" onClick={() => setModalOpen(true)}>+ Nueva captación</button>
@@ -77,6 +110,7 @@ export default function App() {
         onSave={(form) => { addLead(activeTab, form); setModalOpen(false) }}
         agents={agents}
         sourceLabel={activeSource.label}
+        sourceKey={activeTab}
       />
     </div>
   )

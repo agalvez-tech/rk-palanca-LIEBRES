@@ -1,17 +1,20 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, CartesianGrid } from 'recharts'
+import { MONTHS } from './PeriodFilter'
 
-function isSameMonth(dateStr, ref) {
+function matchesPeriod(dateStr, year, month) {
+  if (!dateStr) return false
   const d = new Date(dateStr)
-  return d.getFullYear() === ref.getFullYear() && d.getMonth() === ref.getMonth()
+  if (d.getFullYear() !== year) return false
+  if (month !== null && d.getMonth() !== month) return false
+  return true
 }
 
-export default function EquityChart({ leads, agents, color }) {
-  const now = new Date()
-  const monthLeads = leads.filter(l => l.createdAt && isSameMonth(l.createdAt, now))
+export default function EquityChart({ leads, agents, color, year, month }) {
+  const periodLeads = leads.filter(l => matchesPeriod(l.createdAt, year, month))
 
   const counts = agents.map(a => ({
     name: a.name,
-    total: monthLeads.filter(l => l.comercial === a.name).length,
+    total: periodLeads.filter(l => l.comercial === a.name).length,
   }))
 
   const max = Math.max(...counts.map(c => c.total), 0)
@@ -20,12 +23,12 @@ export default function EquityChart({ leads, agents, color }) {
   const top = counts.filter(c => c.total === max && max > 0).map(c => c.name)
   const bottom = counts.filter(c => c.total === min).map(c => c.name)
 
-  const monthLabel = now.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })
+  const periodLabel = month === null ? `año ${year}` : `${MONTHS[month].toLowerCase()} de ${year}`
 
   return (
     <div className="card equity-card">
       <div className="equity-head">
-        <h3>Reparto de leads · {monthLabel}</h3>
+        <h3>Reparto de leads · {periodLabel}</h3>
         <div className="equity-flags">
           {max > 0 && (
             <span className="flag high">🔥 Recibe más: {top.join(', ')} ({max})</span>
@@ -48,7 +51,7 @@ export default function EquityChart({ leads, agents, color }) {
             tickLine={false}
           />
           <Tooltip
-            formatter={(v) => [`${v} leads`, 'Este mes']}
+            formatter={(v) => [`${v} leads`, periodLabel]}
             contentStyle={{ borderRadius: 8, border: '1px solid #E4DFD8', fontSize: 12 }}
           />
           <Bar dataKey="total" radius={[0, 6, 6, 0]} maxBarSize={18}>

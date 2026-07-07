@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ESTADOS } from '../data/sources'
+import { STAFF_MEMBERS } from '../data/staff'
 
 const emptyForm = {
   contacto: '',
@@ -11,8 +12,9 @@ const emptyForm = {
   altaAgente: '',
 }
 
-export default function AddLeadModal({ open, onClose, onSave, agents, sourceLabel }) {
+export default function AddLeadModal({ open, onClose, onSave, agents, sourceLabel, sourceKey }) {
   const [form, setForm] = useState(emptyForm)
+  const isStaffTab = sourceKey === 'generacionPropia'
 
   if (!open) return null
 
@@ -65,8 +67,15 @@ export default function AddLeadModal({ open, onClose, onSave, agents, sourceLabe
             </select>
           </div>
           <div className="form-row">
-            <label>Quién lo registra</label>
-            <input value={form.altaAgente} onChange={e => set('altaAgente', e.target.value)} placeholder="Tu nombre" />
+            <label>Quién lo registra{isStaffTab ? ' (staff)' : ''}</label>
+            {isStaffTab ? (
+              <select value={form.altaAgente} onChange={e => set('altaAgente', e.target.value)}>
+                <option value="">Selecciona...</option>
+                {STAFF_MEMBERS.map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+            ) : (
+              <input value={form.altaAgente} onChange={e => set('altaAgente', e.target.value)} placeholder="Tu nombre" />
+            )}
           </div>
           <div className="form-actions">
             <button type="button" className="btn-secondary" onClick={onClose}>Cancelar</button>

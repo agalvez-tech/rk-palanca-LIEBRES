@@ -17,8 +17,10 @@ Los niveles y agentes están definidos en `src/data/agents.js`, según el `RANKI
 ## Funcionamiento
 
 - Cualquier persona del staff puede añadir una nueva captación en cualquier pestaña, asignándola a un agente **con acceso a esa fuente**.
-- La tabla es editable en línea: los cambios se guardan al momento y se ven reflejados para todos (sincronización cada 4 segundos vía polling sobre Upstash Redis).
-- Cada pestaña muestra una gráfica que compara cuántas captaciones ha recibido cada agente **en el mes en curso**, marcando quién recibe más (🔥) y quién menos (⚖️), para ayudar a repartir de forma equitativa.
+- La tabla es editable en línea: los cambios se guardan al momento y se ven reflejados para todos (sincronización cada 4 segundos vía polling sobre Upstash Redis). Las filas se muestran de más reciente a más antigua.
+- Cada pestaña tiene un filtro de **mes y año** (arriba a la derecha) para ver las estadísticas del periodo que quieras, no solo el mes en curso.
+- En **Verónica** y las **oficinas**: gráfica de barras comparando cuántas captaciones ha recibido cada agente en el periodo seleccionado, marcando quién recibe más (🔥) y quién menos (⚖️).
+- En **Staff**: en vez de la gráfica de reparto, se muestra un **cuadrante anual** (filtro solo de año) con el ranking del staff no comercial — cuántas captaciones ha originado cada persona mes a mes, ordenado de mayor a menor total, con medallas para el top 3.
 - Sin login ni PIN: acceso abierto para todo el staff.
 
 ## Stack
