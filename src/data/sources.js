@@ -3,7 +3,7 @@ export const SOURCES = [
     key: 'generacionPropia',
     label: 'Generación Staff',
     short: 'Staff',
-    description: 'Captaciones generadas por el propio agente (puerta fría, cartera, referidos...).',
+    description: 'Captaciones de generación propia del staff (no comercial), que se reparten entre los agentes comerciales para que gestionen la venta. El staff que la origina cobra por el origen de la captación.',
     color: '#CF731B',
   },
   {
@@ -40,13 +40,6 @@ export const SOURCES = [
     short: 'Massamagrell',
     description: 'Clientes que entran por la oficina de Massamagrell. Acceso: Top Producer y Consultor Senior.',
     color: '#2E86AB',
-  },
-  {
-    key: 'gerencia',
-    label: 'Gerencia (VIP)',
-    short: 'Gerencia',
-    description: 'Leads VIP que cede directamente gerencia. Acceso exclusivo: Top Producer.',
-    color: '#171513',
   },
 ]
 
